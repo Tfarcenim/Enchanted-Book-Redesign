@@ -7,9 +7,6 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EnchantedBookGlintHax extends ItemStackTileEntityRenderer {
 
   public static final Minecraft mc = Minecraft.getInstance();
@@ -17,9 +14,6 @@ public class EnchantedBookGlintHax extends ItemStackTileEntityRenderer {
   public BookWrapper model;
   public static ItemCameraTransforms.TransformType transform;
   private ItemRenderer itemRenderer;
-
-
-
 
   @Override
   public void renderByItem(ItemStack stack) {
