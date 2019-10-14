@@ -1,0 +1,15 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "enchantedbookredesign:item/enchanted_book"
+
+    },
+    "overrides": [
+        { "predicate": { "level": 0 }, "model": "enchantedbookredesign:item/enchanted_bookcursed" },
+        { "predicate": { "level": 1 }, "model": "enchantedbookredesign:item/enchanted_book1" },
+        { "predicate": { "level": 2 }, "model": "enchantedbookredesign:item/enchanted_book2" },
+        { "predicate": { "level": 3 }, "model": "enchantedbookredesign:item/enchanted_book3" },
+        { "predicate": { "level": 4 }, "model": "enchantedbookredesign:item/enchanted_book4" },
+        { "predicate": { "level": 5 }, "model": "enchantedbookredesign:item/enchanted_book5" }
+    ]
+}
