@@ -2,7 +2,6 @@ package com.tfar.enchantedbookredesign;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -36,7 +35,7 @@ public class EnchantedBookRedesign {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private ResourcePack dummyPack = new ResourcePack();
+    private InternalResourcePack internalResourcePack = new InternalResourcePack();
 
     public EnchantedBookRedesign instance;
 
@@ -47,15 +46,8 @@ public class EnchantedBookRedesign {
 
             @Override
             public <T extends ResourcePackInfo> void addPackInfosToMap(Map<String, T> nameToPackMap, ResourcePackInfo.IFactory<T> packInfoFactory) {
-                NativeImage img = null;
-                try {
-                    img = NativeImage.read(dummyPack.getRootResourceStream("pack.png"));
-                } catch (Exception e) {
-                    LogManager.getLogger().error("Could not load blur's pack.png", e);
-                }
-                @SuppressWarnings("unchecked")
-                T var3 = (T) new ClientResourcePackInfo(MODID, true, () -> dummyPack, new StringTextComponent(dummyPack.getName()), new StringTextComponent("Enchanted Book Redesign Resource pack"),
-                        PackCompatibility.COMPATIBLE, ResourcePackInfo.Priority.TOP, true, img,false);
+                T var3 = (T) new ClientResourcePackInfo(MODID, true, () -> internalResourcePack, new StringTextComponent(internalResourcePack.getName()), new StringTextComponent(internalResourcePack.getName()),
+                        PackCompatibility.COMPATIBLE, ResourcePackInfo.Priority.TOP, true, null,false);
                 nameToPackMap.put(MODID, var3);
             }
         });
