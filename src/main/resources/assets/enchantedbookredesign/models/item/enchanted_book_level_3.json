@@ -2,7 +2,7 @@
     "parent": "item/generated",
     "textures": {
         "layer0": "enchantedbookredesign:item/enchanted_book",
-        "layer1": "enchantedbookredesign:item/level_1",
-        "layer2": "enchantedbookredesign:item/layer_3"
+        "layer1": "enchantedbookredesign:item/ribbon",
+        "layer2": "enchantedbookredesign:item/level_3"
     }
 }
