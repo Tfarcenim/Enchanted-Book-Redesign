@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 
@@ -34,8 +35,8 @@ public class EnchantedBookItemRenderer extends ItemRenderer {
       {
         this.renderModel(model, stack);
         if (stack.hasEffect()) {
-          final int color = 0xFFFF0000;//((DankItemBlock)stack.getItem()).getGlintColor(stack);
-          renderEffect(Minecraft.getInstance().textureManager, () -> {
+          final int color = 0x40000000 + EnchantedBookRedesign.getColor(stack);//((DankItemBlock)stack.getItem()).getGlintColor(stack);
+          EnchantedBookGlintHax.renderEffect(Minecraft.getInstance().textureManager, () -> {
             this.renderModel(model, color);
           }, 8);
         }
@@ -56,6 +57,12 @@ public class EnchantedBookItemRenderer extends ItemRenderer {
   private IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
     IBakedModel ibakedmodel = model.getOverrides().getModelWithOverrides(model, stack, worldIn, entityIn);
     return ibakedmodel == null ? this.mesher.getModelManager().getMissingModel() : ibakedmodel;
+  }
+
+  public IBakedModel getItemModelWithOverrides(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entitylivingbaseIn) {
+    IBakedModel ibakedmodel = this.mesher.getItemModel(stack);
+    Item item = stack.getItem();
+    return !item.hasCustomProperties() ? ibakedmodel : this.getModelWithOverrides(ibakedmodel, stack, worldIn, entitylivingbaseIn);
   }
 
   private void renderModel(IBakedModel model, ItemStack stack) {
@@ -90,5 +97,9 @@ public class EnchantedBookItemRenderer extends ItemRenderer {
   @Override
   public ItemModelMesher getItemModelMesher() {
     return mesher;
+  }
+
+  public void onResourceManagerReload(IResourceManager resourceManager) {
+    this.mesher.rebuildCache();
   }
 }

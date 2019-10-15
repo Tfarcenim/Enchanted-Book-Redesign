@@ -62,8 +62,6 @@ public class BookWrapper implements IBakedModel {
     return internal.getOverrides();
   }
 
-  public ItemCameraTransforms.TransformType transform;
-
   @Override
   public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType type) {
     EnchantedBookGlintHax.transform = type;
