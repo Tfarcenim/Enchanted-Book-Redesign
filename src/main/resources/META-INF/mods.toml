@@ -24,9 +24,9 @@ displayName="Enchanted Book Redesign" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="enchantedbookredesign.png" #optional
 # A text field displayed in the mod UI
-#credits="Thanks for this example mod goes to Java" #optional
+credits="Thanks to /u/ynl38 for the original concept" #optional
 # A text field displayed in the mod UI
-authors="Tfarecnim" #optional
+authors="Tfarecnim, wiresegal" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 
