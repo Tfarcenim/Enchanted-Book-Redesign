@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
+import net.minecraftforge.fml.packs.ModFileResourcePack;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -35,7 +36,7 @@ public class EnchantedBookRedesign {
             List<ModFileInfo> modFiles = ModList.get().getModFiles();
             for (ModFileInfo modFileInfo : modFiles){
                 if (modFileInfo.getMods().get(0).getModId().equals(MODID)) {
-                    internalResourcePack = new InternalResourcePack(modFileInfo.getFile());
+                    internalResourcePack = new ModFileResourcePack(modFileInfo.getFile());
                     break;
                 }
             }
@@ -112,25 +113,25 @@ public class EnchantedBookRedesign {
                     case ARMOR_CHEST:
                     case ARMOR_HEAD:
                     case WEARABLE:
-                        color = 0x008F00;
+                        color = 0x00FF00;
                         break;
                     case WEAPON:
-                        color = 0x8F0000;
+                        color = 0xFF0000;
                         break;
                     case DIGGER:
-                        color = 0x654321;
+                        color = 0x774F27;
                         break;
                     case FISHING_ROD:
-                        color = 0x00008F;
+                        color = 0x0000FF;
                         break;
                     case TRIDENT:
-                        color = 0x5E4B96;
+                        color = 0x9F7FFF;
                         break;
                     case BOW:
-                        color = 0xDD7000;
+                        color = 0xFF7B00;
                         break;
                     case CROSSBOW:
-                        color = 0x008F8F;
+                        color = 0x00FFFF;
                         break;
                     default:
                         color = 0x6B541A;
@@ -155,27 +156,5 @@ public class EnchantedBookRedesign {
         int trueB = (int) (b * multiplier);
 
         return 0xFF000000 | (trueR << 16) | (trueG << 8) | trueB;
-    }
-
-    private static final ThreadLocal<ItemStack> targetStack = new ThreadLocal<>();
-
-
-    @SuppressWarnings("unused")
-    public static void setGlintTargetStack(ItemStack stack) {
-        targetStack.set(stack);
-    }
-
-    @SuppressWarnings("unused")
-    public static int changeGlintColor(int color) {
-        if (color == 0xFF8040CC) {
-            ItemStack target = targetStack.get();
-            if (target == null)
-                return color;
-
-            if (target.getItem() == Items.ENCHANTED_BOOK)
-                return getColor(target);
-        }
-
-        return color;
     }
 }
