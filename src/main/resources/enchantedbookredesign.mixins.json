@@ -4,7 +4,11 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "enchantedbookredesign.refmap.json",
   "mixins": [
-    "ItemRendererMixin"
+
+  ],
+  "client": [
+    "ItemRendererMixin",
+    "RenderTypeBuffersMixin"
   ],
   "injectors": {
     "defaultRequire": 1
