@@ -1,4 +1,4 @@
-package com.tfar.enchantedbookredesign;
+package tfar.enchantedbookredesign;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;

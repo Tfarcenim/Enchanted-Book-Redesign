@@ -1,4 +1,4 @@
-package com.tfar.enchantedbookredesign;
+package tfar.enchantedbookredesign;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Hooks {
 
-	public static ItemStack stack;
+	public static ItemStack stack = ItemStack.EMPTY;
 	public static boolean renderTint;
 
 	public static final ResourceLocation TINTED_GLINT_RL = new ResourceLocation(EnchantedBookRedesign.MODID,

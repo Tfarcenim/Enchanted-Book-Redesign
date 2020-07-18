@@ -1,8 +1,8 @@
-package com.tfar.enchantedbookredesign.mixin;
+package tfar.enchantedbookredesign.mixin;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.tfar.enchantedbookredesign.Hooks;
+import tfar.enchantedbookredesign.Hooks;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -37,8 +37,8 @@ public class ItemRendererMixin {
 
 	//cancel the vanilla glint and render our own
 	@Inject(method = "getBuffer", at = @At("HEAD"), cancellable = true)
-	private static void tintedglint(IRenderTypeBuffer bufferIn, RenderType renderTypeIn, boolean isItemIn, boolean glintIn, CallbackInfoReturnable<IVertexBuilder> cir) {
-		if (glintIn && Hooks.stack != null && Hooks.stack.getItem() == Items.ENCHANTED_BOOK) {
+	private static void tintedglint(IRenderTypeBuffer bufferIn, RenderType renderTypeIn, boolean isItemIn, boolean glint, CallbackInfoReturnable<IVertexBuilder> cir) {
+		if (glint && Hooks.stack.getItem() == Items.ENCHANTED_BOOK) {
 			IVertexBuilder builder2 = bufferIn.getBuffer(renderTypeIn);
 			cir.setReturnValue(builder2);
 			Hooks.renderTint = true;

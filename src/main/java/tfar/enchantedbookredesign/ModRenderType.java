@@ -1,6 +1,5 @@
-package com.tfar.enchantedbookredesign;
+package tfar.enchantedbookredesign;
 
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;

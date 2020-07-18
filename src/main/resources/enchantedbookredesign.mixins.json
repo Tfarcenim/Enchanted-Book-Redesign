@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.tfar.enchantedbookredesign.mixin",
+  "package": "tfar.enchantedbookredesign.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "enchantedbookredesign.refmap.json",
   "mixins": [
