@@ -38,7 +38,7 @@ public class ItemRendererMixin {
 	//cancel the vanilla glint and render our own
 	@Inject(method = "getBuffer", at = @At("HEAD"), cancellable = true)
 	private static void tintedglint(IRenderTypeBuffer bufferIn, RenderType renderTypeIn, boolean isItemIn, boolean glintIn, CallbackInfoReturnable<IVertexBuilder> cir) {
-		if (glintIn && Hooks.stack.getItem() == Items.ENCHANTED_BOOK) {
+		if (glintIn && Hooks.stack != null && Hooks.stack.getItem() == Items.ENCHANTED_BOOK) {
 			IVertexBuilder builder2 = bufferIn.getBuffer(renderTypeIn);
 			cir.setReturnValue(builder2);
 			Hooks.renderTint = true;

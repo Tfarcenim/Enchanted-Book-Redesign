@@ -13,12 +13,16 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
+import net.minecraftforge.fml.network.FMLNetworkConstants;
 import net.minecraftforge.fml.packs.ModFileResourcePack;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -32,6 +36,8 @@ public class EnchantedBookRedesign {
     private static ResourcePack internalResourcePack;
 
     public EnchantedBookRedesign() {
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
             List<ModFileInfo> modFiles = ModList.get().getModFiles();
             for (ModFileInfo modFileInfo : modFiles){
