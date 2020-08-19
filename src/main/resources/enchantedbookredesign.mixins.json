@@ -2,10 +2,6 @@
   "required": true,
   "package": "tfar.enchantedbookredesign.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "enchantedbookredesign.refmap.json",
-  "mixins": [
-
-  ],
   "client": [
     "ItemRendererMixin",
     "RenderTypeBuffersMixin"
