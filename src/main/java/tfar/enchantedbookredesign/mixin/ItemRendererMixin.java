@@ -27,7 +27,7 @@ public abstract class ItemRendererMixin {
 	}
 
 	//stop the vanilla glint from drawing at all if our conditions are met
-	@Inject(method = "func_239391_c_", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "getEntityGlintVertexBuilder", at = @At("HEAD"), cancellable = true)
 	private static void tintedglint(IRenderTypeBuffer bufferIn, RenderType renderTypeIn, boolean isItem, boolean glint, CallbackInfoReturnable<IVertexBuilder> cir) {
 			if (glint) {
 				IVertexBuilder builder2 = VertexBuilderUtils.newDelegate(

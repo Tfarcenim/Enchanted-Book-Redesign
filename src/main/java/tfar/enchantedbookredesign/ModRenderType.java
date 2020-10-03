@@ -30,7 +30,7 @@ public class ModRenderType extends RenderState {
                   .writeMask(COLOR_WRITE)
                   .cull(CULL_DISABLED)
                   .depthTest(DEPTH_EQUAL)
-                  .transparency(field_239240_f_)
+                  .transparency(GLINT_TRANSPARENCY)
                   .texturing(GLINT_TEXTURING)
                   .build(false));
 

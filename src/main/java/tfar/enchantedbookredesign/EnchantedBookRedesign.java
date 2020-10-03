@@ -28,7 +28,7 @@ public class EnchantedBookRedesign {
 	}
 
 	private void setupClient(final FMLClientSetupEvent event) {
-		ItemModelsProperties.func_239418_a_(Items.ENCHANTED_BOOK, new ResourceLocation(MODID, "level"),
+		ItemModelsProperties.registerProperty(Items.ENCHANTED_BOOK, new ResourceLocation(MODID, "level"),
 						(stack, world, entity) -> {
 							Map<Enchantment, Integer> enchs = EnchantmentHelper.getEnchantments(stack);
 							if (enchs.isEmpty())
