@@ -22,5 +22,6 @@ public abstract class RenderTypeBuffersMixin {
 					at = @At(value = "INVOKE",target = "net/minecraft/client/renderer/RenderType.getEntityGlint ()Lnet/minecraft/client/renderer/RenderType;"))
 	private void rendertype(Object2ObjectLinkedOpenHashMap map, CallbackInfo ci) {
 		put(map, ModRenderType.TINTED_GLINT_DIRECT);
+		put(map, ModRenderType.TINTED_ENTITY_GLINT_DIRECT);
 	}
 }
