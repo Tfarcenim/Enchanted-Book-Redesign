@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.VertexBuilderUtils;
 import net.minecraft.client.renderer.*;
+import tfar.enchantedbookredesign.EnchantedBookRedesign;
 import tfar.enchantedbookredesign.Hooks;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -29,7 +30,7 @@ public abstract class ItemRendererMixin {
 	//stop the vanilla glint from drawing at all if our conditions are met
 	@Inject(method = "getEntityGlintVertexBuilder", at = @At("HEAD"), cancellable = true)
 	private static void tintedglint(IRenderTypeBuffer bufferIn, RenderType renderTypeIn, boolean isItem, boolean glint, CallbackInfoReturnable<IVertexBuilder> cir) {
-			if (glint) {
+			if (glint && EnchantedBookRedesign.cache.contains(Hooks.stack.getItem())) {
 				IVertexBuilder builder2 = VertexBuilderUtils.newDelegate(
 								TintedVertexConsumer.withTint(
 												bufferIn.getBuffer(isItem ? ModRenderType.TINTED_GLINT_DIRECT : ModRenderType.TINTED_ENTITY_GLINT_DIRECT)
