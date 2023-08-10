@@ -7,6 +7,7 @@ import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -50,7 +51,7 @@ public class EnchantedBookRedesign {
 
 	private void shaders(RegisterShadersEvent e) {
 		try {
-			e.registerShader(new ShaderInstance(e.getResourceManager(), new ResourceLocation(MODID,"rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_COLOR_TEX), (p_172803_) -> {
+			e.registerShader(new ShaderInstance(e.getResourceProvider(), new ResourceLocation(MODID,"rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_COLOR_TEX), (p_172803_) -> {
 				Hooks.rendertype_tinted_glint_direct = p_172803_;
 			});
 		} catch (IOException ex) {
@@ -109,7 +110,7 @@ public class EnchantedBookRedesign {
 		if (e.getConfig().getModId().equals(MODID)) {
 			cache.clear();
 			for (String s : ClientConfig.items.get()) {
-				Item item = Registry.ITEM.get(new ResourceLocation(s));
+				Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(s));
 				if (item == Items.AIR) {
 					System.out.println(s+" not found");
 				} else {
