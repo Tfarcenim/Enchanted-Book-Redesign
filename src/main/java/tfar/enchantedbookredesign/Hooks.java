@@ -1,5 +1,10 @@
 package tfar.enchantedbookredesign;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexMultiConsumer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +18,7 @@ public class Hooks {
 
 	public static final ResourceLocation TINTED_GLINT_RL = new ResourceLocation(EnchantedBookRedesign.MODID,
 					"textures/misc/enchanted_item_glint.png");
+	public static ShaderInstance rendertype_tinted_glint_direct;
 
 
 	public static int getColor(ItemStack stack) {
@@ -90,5 +96,22 @@ public class Hooks {
 			int trueB = (int) (b * multiplier);
 
 			return 0xFF000000 | (trueR << 16) | (trueG << 8) | trueB;
+	}
+
+
+	public static VertexConsumer buildConsumer(MultiBufferSource bufferIn, RenderType renderTypeIn, boolean isItem, boolean glint) {
+		if (glint && EnchantedBookRedesign.cache.contains(Hooks.stack.getItem())) {
+			VertexConsumer builder2 = VertexMultiConsumer.create(
+					TintedVertexConsumer.withTint(
+							bufferIn.getBuffer(isItem ? ModRenderType.TINTED_GLINT_DIRECT : ModRenderType.TINTED_GLINT_DIRECT)
+							, Hooks.getColor(Hooks.stack)),
+					bufferIn.getBuffer(renderTypeIn));
+			return builder2;
+		}
+		return null;
+	}
+
+	public static ShaderInstance getRendertype_tinted_glint_direct() {
+		return rendertype_tinted_glint_direct;
 	}
 }

@@ -31,13 +31,12 @@ public abstract class ItemRendererMixin {
 	//stop the vanilla glint from drawing at all if our conditions are met
 	@Inject(method = "getFoilBufferDirect", at = @At("HEAD"), cancellable = true)
 	private static void tintedglint(MultiBufferSource bufferIn, RenderType renderTypeIn, boolean isItem, boolean glint, CallbackInfoReturnable<VertexConsumer> cir) {
-			if (glint && EnchantedBookRedesign.cache.contains(Hooks.stack.getItem())) {
-				VertexConsumer builder2 = VertexMultiConsumer.create(
-								TintedVertexConsumer.withTint(
-												bufferIn.getBuffer(isItem ? ModRenderType.TINTED_GLINT_DIRECT : ModRenderType.TINTED_ENTITY_GLINT_DIRECT)
-												, Hooks.getColor(Hooks.stack)),
-								bufferIn.getBuffer(renderTypeIn));
-				cir.setReturnValue(builder2);
-			}
+
+		VertexConsumer consumer = Hooks.buildConsumer(bufferIn,renderTypeIn,isItem,glint);
+		if (consumer != null) {
+			cir.setReturnValue(consumer);
+		}
+
+
 	}
 }

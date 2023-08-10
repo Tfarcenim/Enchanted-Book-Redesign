@@ -60,6 +60,16 @@ public class TintedVertexConsumer implements VertexConsumer {
 	}
 
 	@Override
+	public VertexConsumer color(int pColorARGB) {
+		return VertexConsumer.super.color(pColorARGB);
+	}
+
+	@Override
+	public VertexConsumer color(float pRed, float pGreen, float pBlue, float pAlpha) {
+		return VertexConsumer.super.color(pRed, pGreen, pBlue, pAlpha);
+	}
+
+	@Override
 	public void defaultColor(int p_166901_, int p_166902_, int p_166903_, int p_166904_) {
 		vertexConsumer.defaultColor(p_166901_, p_166902_, p_166903_, p_166904_);
 	}

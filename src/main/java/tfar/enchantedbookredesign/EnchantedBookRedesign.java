@@ -35,8 +35,6 @@ public class EnchantedBookRedesign {
 
 	public static final String MODID = "enchantedbookredesign";
 
-	public static ShaderInstance rendertype_tinted_glint_direct;
-
 
 	public EnchantedBookRedesign() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
@@ -45,17 +43,15 @@ public class EnchantedBookRedesign {
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(this::configLoad);
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(this::shaders);
+		} else {
+			System.out.println("why is this on the server?");
 		}
-	}
-
-	public static ShaderInstance getRendertype_tinted_glint_direct() {
-		return rendertype_tinted_glint_direct;
 	}
 
 	private void shaders(RegisterShadersEvent e) {
 		try {
 			e.registerShader(new ShaderInstance(e.getResourceManager(), new ResourceLocation(MODID,"rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_COLOR_TEX), (p_172803_) -> {
-				rendertype_tinted_glint_direct = p_172803_;
+				Hooks.rendertype_tinted_glint_direct = p_172803_;
 			});
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
