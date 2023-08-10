@@ -1,8 +1,10 @@
 package tfar.enchantedbookredesign;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -21,6 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +35,30 @@ public class EnchantedBookRedesign {
 
 	public static final String MODID = "enchantedbookredesign";
 
+	public static ShaderInstance rendertype_tinted_glint_direct;
+
+
 	public EnchantedBookRedesign() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
 		ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, ()->new IExtensionPoint.DisplayTest(()->"ANY", (remote, isServer)-> true));
 		if (FMLEnvironment.dist.isClient()) {
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
 			FMLJavaModLoadingContext.get().getModEventBus().addListener(this::configLoad);
+			FMLJavaModLoadingContext.get().getModEventBus().addListener(this::shaders);
+		}
+	}
+
+	public static ShaderInstance getRendertype_tinted_glint_direct() {
+		return rendertype_tinted_glint_direct;
+	}
+
+	private void shaders(RegisterShadersEvent e) {
+		try {
+			e.registerShader(new ShaderInstance(e.getResourceManager(), new ResourceLocation(MODID,"rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_COLOR_TEX), (p_172803_) -> {
+				rendertype_tinted_glint_direct = p_172803_;
+			});
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
 		}
 	}
 

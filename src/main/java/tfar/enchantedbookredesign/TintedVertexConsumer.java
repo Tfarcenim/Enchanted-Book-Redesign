@@ -61,12 +61,12 @@ public class TintedVertexConsumer implements VertexConsumer {
 
 	@Override
 	public void defaultColor(int p_166901_, int p_166902_, int p_166903_, int p_166904_) {
-
+		vertexConsumer.defaultColor(p_166901_, p_166902_, p_166903_, p_166904_);
 	}
 
 	@Override
 	public void unsetDefaultColor() {
-
+		vertexConsumer.unsetDefaultColor();
 	}
 
 	public void endVertex() {
