@@ -38,9 +38,9 @@ public class Hooks {
 					int color = 0;
 
 					if (!ench.isCurse()) {
-							if (ench.type == null)
+							if (ench.category == null)
 									color = 0x6B541A;
-							else switch (ench.type) {
+							else switch (ench.category) {
 									case ARMOR:
 									case ARMOR_FEET:
 									case ARMOR_LEGS:

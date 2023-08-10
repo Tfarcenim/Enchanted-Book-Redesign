@@ -19,7 +19,7 @@ public abstract class RenderTypeBuffersMixin {
 	}
 
 	@Inject(method = "*(Lit/unimi/dsi/fastutil/objects/Object2ObjectLinkedOpenHashMap;)V",
-					at = @At(value = "INVOKE",target = "net/minecraft/client/renderer/RenderType.getEntityGlint ()Lnet/minecraft/client/renderer/RenderType;"))
+					at = @At(value = "INVOKE",target = "Lnet/minecraft/client/renderer/RenderType;entityGlint()Lnet/minecraft/client/renderer/RenderType;"))
 	private void rendertype(Object2ObjectLinkedOpenHashMap map, CallbackInfo ci) {
 		put(map, ModRenderType.TINTED_GLINT_DIRECT);
 		put(map, ModRenderType.TINTED_ENTITY_GLINT_DIRECT);

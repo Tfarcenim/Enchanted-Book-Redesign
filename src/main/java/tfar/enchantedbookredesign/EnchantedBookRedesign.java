@@ -41,7 +41,7 @@ public class EnchantedBookRedesign {
 	}
 
 	private void setupClient(final FMLClientSetupEvent event) {
-		ItemModelsProperties.registerProperty(Items.ENCHANTED_BOOK, new ResourceLocation(MODID, "level"),
+		ItemModelsProperties.register(Items.ENCHANTED_BOOK, new ResourceLocation(MODID, "level"),
 						(stack, world, entity) -> {
 							Map<Enchantment, Integer> enchs = EnchantmentHelper.getEnchantments(stack);
 							if (enchs.isEmpty())
@@ -91,7 +91,7 @@ public class EnchantedBookRedesign {
 		if (e.getConfig().getModId().equals(MODID)) {
 			cache.clear();
 			for (String s : ClientConfig.items.get()) {
-				Item item = Registry.ITEM.getOrDefault(new ResourceLocation(s));
+				Item item = Registry.ITEM.get(new ResourceLocation(s));
 				if (item == Items.AIR) {
 					System.out.println(s+" not found");
 				} else {

@@ -17,8 +17,8 @@ public class TintedVertexConsumer implements IVertexBuilder {
 		this.color = color;
 	}
 
-	public IVertexBuilder pos(double x, double y, double z) {
-		this.vertexConsumer.pos(x, y, z);
+	public IVertexBuilder vertex(double x, double y, double z) {
+		this.vertexConsumer.vertex(x, y, z);
 		return this;
 	}
 
@@ -30,18 +30,18 @@ public class TintedVertexConsumer implements IVertexBuilder {
 		return this;
 	}
 
-	public IVertexBuilder tex(float u, float v) {
-		this.vertexConsumer.tex(u, v);
+	public IVertexBuilder uv(float u, float v) {
+		this.vertexConsumer.uv(u, v);
 		return this;
 	}
 
-	public IVertexBuilder overlay(int u, int v) {
-		this.vertexConsumer.overlay(u, v);
+	public IVertexBuilder overlayCoords(int u, int v) {
+		this.vertexConsumer.overlayCoords(u, v);
 		return this;
 	}
 
-	public IVertexBuilder lightmap(int u, int v) {
-		this.vertexConsumer.lightmap(u, v);
+	public IVertexBuilder uv2(int u, int v) {
+		this.vertexConsumer.uv2(u, v);
 		return this;
 	}
 
@@ -50,13 +50,13 @@ public class TintedVertexConsumer implements IVertexBuilder {
 		return this;
 	}
 
-	public void addVertex(float x, float y, float z, float red, float green, float blue, float alpha, float u, float v, int overlay, int light, float normalX, float normalY, float normalZ) {
+	public void vertex(float x, float y, float z, float red, float green, float blue, float alpha, float u, float v, int overlay, int light, float normalX, float normalY, float normalZ) {
 
 		float r = (color >> 16 & 0xff) / 255f;
 		float g = (color >> 8 & 0xff) / 255f;
 		float b = (color & 0xff) / 255f;
 
-		this.vertexConsumer.addVertex(x, y, z, r, g, b, alpha, u, v, overlay, light, normalX, normalY, normalZ);
+		this.vertexConsumer.vertex(x, y, z, r, g, b, alpha, u, v, overlay, light, normalX, normalY, normalZ);
 	}
 
 	public void endVertex() {
