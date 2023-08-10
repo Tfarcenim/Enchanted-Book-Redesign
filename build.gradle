@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     }
     dependencies {
@@ -13,11 +13,13 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
+//apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
+
 version = "$mod_version-$mc_version"
 group = "tfar.$modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "$modid"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
@@ -80,9 +82,9 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}" //21
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+  //  compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+  //  runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
