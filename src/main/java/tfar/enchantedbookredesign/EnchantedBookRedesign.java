@@ -98,8 +98,8 @@ public class EnchantedBookRedesign {
 		public ClientConfig(ForgeConfigSpec.Builder builder) {
 			builder.push("client");
 			items = builder
-					.comment("Whether to display the preview of the item in the dank, disable if you have optifine")
-					.defineList("items", Lists.newArrayList(Items.ENCHANTED_BOOK.getRegistryName().toString()),String.class::isInstance);
+					.comment("Which items to override glint for")
+					.defineList("items",List.of("minecraft:enchanted_book"),String.class::isInstance);
 			builder.pop();
 		}
 	}
