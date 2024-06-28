@@ -1,16 +1,16 @@
 package tfar.enchantedbookredesign.platform;
 
-import tfar.enchantedbookredesign.EnchantedBookRedesignForge;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
+import tfar.enchantedbookredesign.EnchantedBookRedesignNeoForge;
 import tfar.enchantedbookredesign.platform.services.IPlatformHelper;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLLoader;
 
-public class ForgePlatformHelper implements IPlatformHelper {
+public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public String getPlatformName() {
 
-        return "Forge";
+        return "NeoForge";
     }
 
     @Override
@@ -27,6 +27,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public MLConfig getConfig() {
-        return EnchantedBookRedesignForge.CLIENT;
+        return EnchantedBookRedesignNeoForge.CLIENT;
     }
 }

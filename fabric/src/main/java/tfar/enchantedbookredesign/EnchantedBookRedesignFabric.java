@@ -13,7 +13,7 @@ public class EnchantedBookRedesignFabric implements ClientModInitializer {
         EnchantedBookRedesign.init();
         ColorProviderRegistry.ITEM.register(EnchantedBookRedesign.itemColor, Items.ENCHANTED_BOOK);
         CoreShaderRegistrationCallback.EVENT.register(context -> {
-            context.register(EnchantedBookRedesign.id("rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_COLOR_TEX,
+            context.register(EnchantedBookRedesign.id("rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_TEX_COLOR,
                     (instance) -> Hooks.rendertype_tinted_glint_direct = instance);
         });
     }

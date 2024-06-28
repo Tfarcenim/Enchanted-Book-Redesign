@@ -1,5 +1,8 @@
 package tfar.enchantedbookredesign.platform;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import tfar.enchantedbookredesign.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
@@ -27,6 +30,16 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public MLConfig getConfig() {
-        return () -> Set.of(Items.ENCHANTED_BOOK);
+        return new MLConfig() {
+            @Override
+            public Set<Item> whitelistedItems() {
+                return Set.of();
+            }
+
+            @Override
+            public Object2IntMap<ResourceLocation> getColorMap() {
+                return null;
+            }
+        };
     }
 }

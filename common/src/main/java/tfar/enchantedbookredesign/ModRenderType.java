@@ -24,7 +24,7 @@ public class ModRenderType extends RenderType {
                     .createCompositeState(false));*/
 
     public static RenderType TINTED_GLINT_DIRECT = RenderType.create("tinted_glint_direct",
-            DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS,
+            DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS,
             256, false, false, RenderType.CompositeState.builder()
                     .setShaderState(tinted_glint_direct)
                     .setTextureState(new RenderStateShard.TextureStateShard(Hooks.TINTED_GLINT_RL, true, false))

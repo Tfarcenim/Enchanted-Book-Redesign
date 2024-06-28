@@ -1,16 +1,21 @@
 package tfar.enchantedbookredesign;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.jetbrains.annotations.Nullable;
 import tfar.enchantedbookredesign.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -43,13 +48,13 @@ public class EnchantedBookRedesign {
 
                     @Override
                     public float unclampedCall(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
-                        Map<Enchantment, Integer> enchs = EnchantmentHelper.getEnchantments(itemStack);
-                        if (enchs.isEmpty())
+                        ItemEnchantments enchs = itemStack.get(DataComponents.STORED_ENCHANTMENTS);
+                        if (enchs != null && enchs.isEmpty())
                             return 1;
 
                         int level = 1;
-                        for (Map.Entry<Enchantment, Integer> entry : enchs.entrySet()) {
-                            if (entry.getKey().isCurse())
+                        for (Object2IntMap.Entry<Holder<Enchantment>> entry : enchs.entrySet()) {
+                            if (entry.getKey().is(EnchantmentTags.CURSE))
                                 return 0;
 
                             level = Math.max(level, entry.getValue());
@@ -67,7 +72,7 @@ public class EnchantedBookRedesign {
     }
 
     public static ResourceLocation id(String path) {
-        return new ResourceLocation(MOD_ID,path);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID,path);
     }
 
 }
