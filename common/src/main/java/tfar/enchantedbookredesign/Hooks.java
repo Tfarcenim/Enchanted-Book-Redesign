@@ -9,6 +9,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
+import tfar.enchantedbookredesign.platform.Services;
 
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class Hooks {
 
 	public static ItemStack stack = ItemStack.EMPTY;
 
-	public static final ResourceLocation TINTED_GLINT_RL = new ResourceLocation(EnchantedBookRedesign.MODID,
+	public static final ResourceLocation TINTED_GLINT_RL = EnchantedBookRedesign.id(
 					"textures/misc/enchanted_item_glint.png");
 	public static ShaderInstance rendertype_tinted_glint_direct;
 
@@ -46,37 +47,16 @@ public class Hooks {
 					if (!ench.isCurse()) {
 							if (ench.category == null)
 									color = 0x6B541A;
-							else switch (ench.category) {
-									case ARMOR:
-									case ARMOR_FEET:
-									case ARMOR_LEGS:
-									case ARMOR_CHEST:
-									case ARMOR_HEAD:
-									case WEARABLE:
-											color = 0x00FF00;
-											break;
-									case WEAPON:
-											color = 0xFF0000;
-											break;
-									case DIGGER:
-											color = 0x774F27;
-											break;
-									case FISHING_ROD:
-											color = 0x0000FF;
-											break;
-									case TRIDENT:
-											color = 0x9F7FFF;
-											break;
-									case BOW:
-											color = 0xFF7B00;
-											break;
-									case CROSSBOW:
-											color = 0x00FFFF;
-											break;
-									default:
-											color = 0x6B541A;
-											break;
-							}
+							else color = switch (ench.category) {
+                                case ARMOR, ARMOR_FEET, ARMOR_LEGS, ARMOR_CHEST, ARMOR_HEAD, WEARABLE -> 0x00FF00;
+                                case WEAPON -> 0xFF0000;
+                                case DIGGER -> 0x774F27;
+                                case FISHING_ROD -> 0x0000FF;
+                                case TRIDENT -> 0x9F7FFF;
+                                case BOW -> 0xFF7B00;
+                                case CROSSBOW -> 0x00FFFF;
+                                default -> 0x6B541A;
+                            };
 					}
 
 					int cr = (color & 0xFF0000) >> 16;
@@ -100,7 +80,7 @@ public class Hooks {
 
 
 	public static VertexConsumer buildConsumer(MultiBufferSource bufferIn, RenderType renderTypeIn, boolean isItem, boolean glint) {
-		if (glint && EnchantedBookRedesign.cache.contains(Hooks.stack.getItem())) {
+		if (glint && Services.PLATFORM.getConfig().whitelistedItems().contains(Hooks.stack.getItem())) {
 			VertexConsumer builder2 = VertexMultiConsumer.create(
 					TintedVertexConsumer.withTint(
 							bufferIn.getBuffer(isItem ? ModRenderType.TINTED_GLINT_DIRECT : ModRenderType.TINTED_GLINT_DIRECT)

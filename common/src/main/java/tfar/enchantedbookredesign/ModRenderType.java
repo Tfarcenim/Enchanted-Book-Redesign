@@ -5,9 +5,10 @@ import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 
-public class ModRenderType extends RenderStateShard {
-    public ModRenderType(String p_i225973_1_, Runnable p_i225973_2_, Runnable p_i225973_3_) {
-        super(p_i225973_1_, p_i225973_2_, p_i225973_3_);
+public class ModRenderType extends RenderType {
+
+    public ModRenderType(String $$0, VertexFormat $$1, VertexFormat.Mode $$2, int $$3, boolean $$4, boolean $$5, Runnable $$6, Runnable $$7) {
+        super($$0, $$1, $$2, $$3, $$4, $$5, $$6, $$7);
     }
 
     static ShaderStateShard tinted_glint_direct = new RenderStateShard.ShaderStateShard(Hooks::getRendertype_tinted_glint_direct);
@@ -33,6 +34,7 @@ public class ModRenderType extends RenderStateShard {
                     .setTransparencyState(GLINT_TRANSPARENCY)
                     .setTexturingState(GLINT_TEXTURING)
                     .createCompositeState(false));
+
 
 
   /*  public static final RenderType TINTED_ENTITY_GLINT_DIRECT =
