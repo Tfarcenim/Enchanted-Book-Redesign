@@ -3,10 +3,15 @@ package tfar.enchantedbookredesign;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import org.jetbrains.annotations.Nullable;
 import tfar.enchantedbookredesign.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
@@ -30,19 +35,27 @@ public class EnchantedBookRedesign {
     // code that gets invoked by the entry point of the loader specific projects.
     public static void init() {
         ItemProperties.register(Items.ENCHANTED_BOOK, id("level"),
-                (stack, world, entity,a) -> {
-                    Map<Enchantment, Integer> enchs = EnchantmentHelper.getEnchantments(stack);
-                    if (enchs.isEmpty())
-                        return 1;
-
-                    int level = 1;
-                    for (Map.Entry<Enchantment, Integer> entry : enchs.entrySet()) {
-                        if (entry.getKey().isCurse())
-                            return 0;
-
-                        level = Math.max(level, entry.getValue());
+                new ClampedItemPropertyFunction() {
+                    @Override
+                    public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+                        return unclampedCall(itemStack,clientLevel,livingEntity,i);
                     }
-                    return level;
+
+                    @Override
+                    public float unclampedCall(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+                        Map<Enchantment, Integer> enchs = EnchantmentHelper.getEnchantments(itemStack);
+                        if (enchs.isEmpty())
+                            return 1;
+
+                        int level = 1;
+                        for (Map.Entry<Enchantment, Integer> entry : enchs.entrySet()) {
+                            if (entry.getKey().isCurse())
+                                return 0;
+
+                            level = Math.max(level, entry.getValue());
+                        }
+                        return level;
+                    }
                 });
 
     }
@@ -50,7 +63,6 @@ public class EnchantedBookRedesign {
     public static ItemColor itemColor = (stack, tintIndex) -> tintIndex != 1 ? -1 : Hooks.getColor(stack);
 
     public static void applyTints(ItemColors itemColors) {
-
         itemColors.register(itemColor, Items.ENCHANTED_BOOK);
     }
 
