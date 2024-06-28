@@ -1,6 +1,7 @@
 package tfar.enchantedbookredesign;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -46,9 +47,11 @@ public class EnchantedBookRedesign {
 
     }
 
+    public static ItemColor itemColor = (stack, tintIndex) -> tintIndex != 1 ? -1 : Hooks.getColor(stack);
+
     public static void applyTints(ItemColors itemColors) {
 
-        itemColors.register((stack, tintIndex) -> tintIndex != 1 ? -1 : Hooks.getColor(stack), Items.ENCHANTED_BOOK);
+        itemColors.register(itemColor, Items.ENCHANTED_BOOK);
     }
 
     public static ResourceLocation id(String path) {
