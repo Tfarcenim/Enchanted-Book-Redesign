@@ -29,7 +29,7 @@ public class Hooks {
 					"textures/misc/enchanted_item_glint.png");
 	public static ShaderInstance rendertype_tinted_glint_direct;
 
-	public static final int FALLBACK = 0x6B541A;
+	public static final int FALLBACK = 0xFFFFFF;
 	public static final int ARMOR = 0x00FF00;
 	public static final int SWORD = 0xFF0000;
 	public static final int FISHING = 0x0000FF;
@@ -41,7 +41,7 @@ public class Hooks {
 	public static int getColor(ItemStack stack) {
 			ItemEnchantments enchs = stack.get(DataComponents.STORED_ENCHANTMENTS);
 			if (enchs == null || enchs.isEmpty())
-					return 0xFFFFFF;
+					return FALLBACK;
 
 			double r = 0;
 			double g = 0;

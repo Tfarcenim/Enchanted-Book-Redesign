@@ -51,7 +51,7 @@ public class EnchantedBookRedesignNeoForge {
         Set<ResourceLocation> possible = new HashSet<>();
         for (Enchantment enchantment : enchantments) {
             Enchantment.EnchantmentDefinition enchantmentDefinition = enchantment.definition();
-            TagKey<Item> tagKey = null;
+            TagKey<Item> tagKey;
             if (enchantmentDefinition.primaryItems().isEmpty()) {
                 tagKey = enchantment.definition().supportedItems().unwrapKey().get();
                 System.out.println(enchantments.getKey(enchantment) + " : " + tagKey.location());
