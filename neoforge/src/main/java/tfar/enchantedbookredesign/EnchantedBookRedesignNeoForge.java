@@ -22,7 +22,6 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.apache.commons.lang3.tuple.Pair;
 import tfar.enchantedbookredesign.platform.MLConfig;
@@ -30,20 +29,16 @@ import tfar.enchantedbookredesign.platform.MLConfig;
 import java.io.IOException;
 import java.util.*;
 
-@Mod(EnchantedBookRedesign.MOD_ID)
+@Mod(value = EnchantedBookRedesign.MOD_ID, dist = Dist.CLIENT)
 public class EnchantedBookRedesignNeoForge {
 
     public EnchantedBookRedesignNeoForge(IEventBus bus, ModContainer modContainer, Dist dist) {
         modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC);
-        if (dist.isClient()) {
-            bus.addListener(this::configLoad);
-            bus.addListener(this::shaders);
-            bus.addListener(this::itemColors);
-           // NeoForge.EVENT_BUS.addListener(this::onLogin);
-            EnchantedBookRedesign.init();
-        } else {
-            System.out.println("why is this on the server?");
-        }
+        bus.addListener(this::configLoad);
+        bus.addListener(this::shaders);
+        bus.addListener(this::itemColors);
+        // NeoForge.EVENT_BUS.addListener(this::onLogin);
+        EnchantedBookRedesign.init();
     }
 
     private void itemColors(RegisterColorHandlersEvent.Item event) {
@@ -72,7 +67,7 @@ public class EnchantedBookRedesignNeoForge {
 
     private void shaders(RegisterShadersEvent e) {
         try {
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),EnchantedBookRedesign.id("rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_TEX_COLOR), (instance) -> {
+            e.registerShader(new ShaderInstance(e.getResourceProvider(), EnchantedBookRedesign.id("rendertype_tinted_glint_direct"), DefaultVertexFormat.POSITION_TEX_COLOR), (instance) -> {
                 Hooks.rendertype_tinted_glint_direct = instance;
             });
         } catch (IOException ex) {
@@ -98,32 +93,32 @@ public class EnchantedBookRedesignNeoForge {
 
         public static ModConfigSpec.ConfigValue<List<? extends String>> colors;
 
-        public static String[] defaults = new String[]{"minecraft:enchantable/mace|"+Hooks.FALLBACK,
-                "minecraft:enchantable/bow|"+Hooks.BOW,
-                "minecraft:enchantable/mining|"+Hooks.DIGGER,
-                "minecraft:enchantable/leg_armor|" +Hooks.ARMOR,
-                "minecraft:enchantable/crossbow|"+Hooks.CROSSBOW,
+        public static String[] defaults = new String[]{"minecraft:enchantable/mace|" + Hooks.FALLBACK,
+                "minecraft:enchantable/bow|" + Hooks.BOW,
+                "minecraft:enchantable/mining|" + Hooks.DIGGER,
+                "minecraft:enchantable/leg_armor|" + Hooks.ARMOR,
+                "minecraft:enchantable/crossbow|" + Hooks.CROSSBOW,
                 "minecraft:enchantable/equippable|" + Hooks.ARMOR,
-                "minecraft:enchantable/trident|"+Hooks.TRIDENT,
-                "minecraft:enchantable/durability|"+Hooks.DIGGER,
-                "minecraft:enchantable/head_armor|"+Hooks.ARMOR,
-                "minecraft:enchantable/foot_armor|"+ Hooks.ARMOR,
-                "minecraft:enchantable/mining_loot|"+Hooks.DIGGER,
-                "minecraft:enchantable/fishing|"+Hooks.FISHING,
-                "minecraft:enchantable/vanishing|" +Hooks.FALLBACK,
-                "minecraft:enchantable/sword|"+Hooks.SWORD,
-                "minecraft:enchantable/armor|"+Hooks.ARMOR,
-                "minecraft:enchantable/chest_armor|"+Hooks.ARMOR};
+                "minecraft:enchantable/trident|" + Hooks.TRIDENT,
+                "minecraft:enchantable/durability|" + Hooks.DIGGER,
+                "minecraft:enchantable/head_armor|" + Hooks.ARMOR,
+                "minecraft:enchantable/foot_armor|" + Hooks.ARMOR,
+                "minecraft:enchantable/mining_loot|" + Hooks.DIGGER,
+                "minecraft:enchantable/fishing|" + Hooks.FISHING,
+                "minecraft:enchantable/vanishing|" + Hooks.FALLBACK,
+                "minecraft:enchantable/sword|" + Hooks.SWORD,
+                "minecraft:enchantable/armor|" + Hooks.ARMOR,
+                "minecraft:enchantable/chest_armor|" + Hooks.ARMOR};
 
         public ClientConfig(ModConfigSpec.Builder builder) {
             builder.push("client");
             items = builder
                     .comment("Which items to override glint for")
-                    .defineList("items",List.of("minecraft:enchanted_book"),String.class::isInstance);
+                    .defineList("items", List.of("minecraft:enchanted_book"), String.class::isInstance);
 
             colors = builder
                     .comment("Enchantment tag to color map")
-                    .defineList("colors", Arrays.stream(defaults).toList(),String.class::isInstance);
+                    .defineList("colors", Arrays.stream(defaults).toList(), String.class::isInstance);
             builder.pop();
         }
 
@@ -145,7 +140,7 @@ public class EnchantedBookRedesignNeoForge {
             for (String s : ClientConfig.items.get()) {
                 Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(s));
                 if (item == Items.AIR) {
-                    System.out.println(s+" not found");
+                    System.out.println(s + " not found");
                 } else {
                     cache.add(item);
                 }
